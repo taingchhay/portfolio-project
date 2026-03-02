@@ -1,9 +1,24 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import AboutMe from "./pages/AboutMe";
+import "./styles/theme.css";
+import Projects from "./pages/Projects";
+import Contact from "./pages/Contact";
+import Skill from "./pages/Skill";
+import Navbar from "./components/Navbar";
+
 function App() {
   return (
-    <div>
-      <h1>My Portfolio</h1>
-      <p>Full-stack developer portfolio</p>
-    </div>
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<AboutMe />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/skill" element={<Skill />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
