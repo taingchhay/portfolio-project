@@ -1,0 +1,5 @@
+# Temp files
+tmpclaude-*
+
+# Personal photos - do not push
+**/PhotoShot.png
