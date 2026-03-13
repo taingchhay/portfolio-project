@@ -1,21 +1,8 @@
 "use client";
 
 import { useScrollAnimation } from "./useScrollAnimation";
-
-const skillCategories = [
-  {
-    title: "Frontend",
-    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "HTML/CSS"],
-  },
-  {
-    title: "Backend",
-    skills: ["Node.js", "Python", "Express", "PostgreSQL", "REST APIs"],
-  },
-  {
-    title: "Tools & Other",
-    skills: ["Git", "Docker", "VS Code", "Figma", "Linux"],
-  },
-];
+import { skillCategories } from "../data/portfolio";
+import { Icon } from "./icons";
 
 export default function SkillsSection() {
   const sectionRef = useScrollAnimation<HTMLElement>("animate-fade-in-up");
@@ -24,7 +11,7 @@ export default function SkillsSection() {
     <section
       id="skills"
       ref={sectionRef}
-      className="animate-hidden px-6 py-24"
+      className="animate-hidden section-alt px-6 py-24"
     >
       <div className="mx-auto max-w-6xl">
         <h2 className="mb-4 text-center text-3xl font-bold text-text-primary sm:text-4xl">
@@ -40,17 +27,32 @@ export default function SkillsSection() {
               key={category.title}
               className="card-glow rounded-2xl border border-border-custom bg-surface p-6"
             >
-              <h3 className="mb-6 text-lg font-semibold text-accent">
-                {category.title}
-              </h3>
-              <div className="flex flex-wrap gap-3">
+              <div className="mb-6 flex items-center gap-3">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
+                  <Icon name={category.iconKey} className="h-5 w-5" />
+                </span>
+                <h3 className="text-lg font-semibold text-text-primary">
+                  {category.title}
+                </h3>
+              </div>
+              <div className="flex flex-col gap-4">
                 {category.skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="rounded-full border border-border-custom bg-background px-4 py-2 text-sm text-text-secondary transition-colors hover:border-accent hover:text-accent"
-                  >
-                    {skill}
-                  </span>
+                  <div key={skill.name}>
+                    <div className="mb-1.5 flex items-center justify-between">
+                      <span className="text-sm text-text-secondary">
+                        {skill.name}
+                      </span>
+                      <span className="text-xs font-medium text-accent">
+                        {skill.level}%
+                      </span>
+                    </div>
+                    <div className="h-2 overflow-hidden rounded-full bg-background">
+                      <div
+                        className="skill-bar-fill h-full rounded-full bg-gradient-to-r from-accent to-secondary"
+                        style={{ "--fill-width": `${skill.level}%` } as React.CSSProperties}
+                      />
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>

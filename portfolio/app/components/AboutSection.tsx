@@ -2,12 +2,8 @@
 
 import Image from "next/image";
 import { useScrollAnimation } from "./useScrollAnimation";
-
-const stats = [
-  { label: "Years Experience", value: "3+" },
-  { label: "Projects Completed", value: "20+" },
-  { label: "Technologies", value: "10+" },
-];
+import { personalInfo, stats } from "../data/portfolio";
+import CountUpStat from "./CountUpStat";
 
 export default function AboutSection() {
   const sectionRef = useScrollAnimation<HTMLElement>("animate-fade-in-up");
@@ -31,8 +27,8 @@ export default function AboutSection() {
           <div className="flex justify-center">
             <div className="relative h-72 w-72 overflow-hidden rounded-2xl border border-border-custom sm:h-80 sm:w-80">
               <Image
-                src="/image.png"
-                alt="About photo"
+                src={personalInfo.aboutPhoto}
+                alt={`${personalInfo.name} about photo`}
                 fill
                 className="object-cover"
               />
@@ -41,27 +37,22 @@ export default function AboutSection() {
 
           {/* Text */}
           <div className="flex flex-col gap-6">
-            <p className="text-base leading-relaxed text-text-secondary">
-              I&apos;m a passionate full-stack developer with a love for creating
-              elegant, efficient, and user-friendly web applications. With a
-              strong foundation in both frontend and backend technologies, I
-              enjoy tackling complex problems and delivering high-quality
-              solutions.
-            </p>
-            <p className="text-base leading-relaxed text-text-secondary">
-              When I&apos;m not coding, you can find me exploring new
-              technologies, contributing to open-source projects, or sharing
-              knowledge with the developer community.
-            </p>
+            {personalInfo.bio.map((paragraph, i) => (
+              <p key={i} className="text-base leading-relaxed text-text-secondary">
+                {paragraph}
+              </p>
+            ))}
 
-            {/* Stats */}
+            {/* Stats with animated count-up */}
             <div className="mt-4 grid grid-cols-3 gap-4">
               {stats.map((stat) => (
                 <div
                   key={stat.label}
                   className="rounded-xl border border-border-custom bg-surface p-4 text-center"
                 >
-                  <p className="text-2xl font-bold text-accent">{stat.value}</p>
+                  <p className="text-2xl font-bold text-accent">
+                    <CountUpStat value={stat.value} suffix={stat.suffix} />
+                  </p>
                   <p className="mt-1 text-xs text-text-secondary">
                     {stat.label}
                   </p>

@@ -1,0 +1,16 @@
+{
+  "name": "John Doe — Full Stack Developer",
+  "short_name": "Portfolio",
+  "description": "Portfolio of John Doe — a full-stack developer specializing in modern web applications.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#06b6d4",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}

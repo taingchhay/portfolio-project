@@ -1,4 +1,9 @@
+"use client";
+
 import Image from "next/image";
+import { personalInfo, socialLinks } from "../data/portfolio";
+import { Icon, DownloadIcon } from "./icons";
+import TypeWriter from "./TypeWriter";
 
 export default function HeroSection() {
   return (
@@ -15,26 +20,23 @@ export default function HeroSection() {
           </p>
           <h1 className="text-4xl font-bold leading-tight text-text-primary sm:text-5xl lg:text-6xl">
             Hi, I&apos;m{" "}
-            <span className="gradient-text">John Doe</span>
+            <span className="gradient-text">{personalInfo.name}</span>
           </h1>
-          <div className="typing-container text-xl text-text-secondary sm:text-2xl">
-            Full Stack Developer
+          <div className="text-xl text-text-secondary sm:text-2xl">
+            <TypeWriter words={personalInfo.roles} />
           </div>
           <p className="max-w-md text-base leading-relaxed text-text-secondary">
-            I build modern web applications with clean code and great user
-            experiences. Passionate about turning ideas into reality through
-            technology.
+            {personalInfo.tagline}
           </p>
-          <div className="flex flex-wrap gap-4 pt-2">
+
+          <div className="flex flex-wrap items-center gap-4 pt-2">
             <a
-              href="/cv.pdf"
+              href={personalInfo.cvUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-background transition-colors hover:bg-accent-hover"
             >
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
+              <DownloadIcon />
               Download CV
             </a>
             <a
@@ -44,6 +46,22 @@ export default function HeroSection() {
               Contact Me
             </a>
           </div>
+
+          {/* Social links */}
+          <div className="flex gap-3 pt-2">
+            {socialLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                aria-label={link.label}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-border-custom text-text-secondary transition-colors hover:border-accent hover:text-accent"
+              >
+                <Icon name={link.iconKey} className="h-4 w-4" />
+              </a>
+            ))}
+          </div>
         </div>
 
         {/* Profile photo */}
@@ -51,8 +69,8 @@ export default function HeroSection() {
           <div className="relative h-72 w-72 sm:h-80 sm:w-80 lg:h-96 lg:w-96">
             <div className="absolute inset-0 rounded-full animate-glow-pulse" />
             <Image
-              src="/PhotoShot.png"
-              alt="Profile photo"
+              src={personalInfo.photo}
+              alt={`${personalInfo.name} profile photo`}
               fill
               className="rounded-full border-2 border-accent/30 object-cover"
               priority
